@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07130e">
+<title>CASINO LES · Ruleta</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+:root{color-scheme:dark;--bg:#07130e;--felt:#0b2118;--felt2:#103323;--gold:#edc875;--gold2:#ffe5a1;--cream:#fff7e6;--muted:#b5c3b8;--red:#ad2838;--green:#123d2c}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--cream);font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 50% 35%,#183b2a 0%,#0b2118 37%,var(--bg) 78%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#edc875 0.6px,transparent .6px);background-size:28px 28px;mask-image:linear-gradient(transparent,#000 24%,#000 75%,transparent)}
+main{position:relative;isolation:isolate;width:min(100%,1040px);min-height:100vh;margin:auto;padding:28px 24px 40px;display:flex;flex-direction:column;align-items:center}
+.topline{width:100%;display:flex;justify-content:space-between;align-items:center;color:#d7c18f;font-size:11px;font-weight:700;letter-spacing:.19em;text-transform:uppercase}.live{display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:#72ce91;box-shadow:0 0 12px #72ce91;animation:pulse 1.6s infinite}
+.brand{text-align:center;margin:12px 0 14px}.eyebrow{margin:0 0 5px;color:var(--gold);font-size:11px;letter-spacing:.34em;text-transform:uppercase}.brand h1{font-family:'Playfair Display',Georgia,serif;font-weight:800;letter-spacing:.12em;font-size:clamp(34px,7vw,58px);line-height:1;margin:0;text-shadow:0 3px 22px #edc87542}.brand h1 span{color:var(--gold2)}.brand p{font-size:13px;color:var(--muted);margin:10px 0 0;letter-spacing:.06em}
+.wheel-shell{position:relative;width:min(76vw,540px);aspect-ratio:1;margin:8px auto 8px;filter:drop-shadow(0 20px 34px #0009)}.wheel-shell:before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 8deg,#8e642a,#f8df9c,#9b6c28,#fff0bc,#8e642a);box-shadow:0 0 0 2px #5e441f,0 0 42px #e1b75930}.wheel-shell:after{content:"";position:absolute;inset:-14px;border:1px solid #d6b15d56;border-radius:50%;pointer-events:none}.pointer{position:absolute;z-index:4;top:-17px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:0;border-bottom:32px solid var(--gold2);filter:drop-shadow(0 3px 5px #0009)}#wheel{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transform:rotate(0deg);transition:transform 7.2s cubic-bezier(.12,.76,.11,1);z-index:1}.rim{fill:#0b1711;stroke:#f1d68f;stroke-width:2}.sector{stroke:#eed58d;stroke-width:1.05}.number{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;fill:#fff9e9;text-anchor:middle;dominant-baseline:central;text-shadow:0 1px 3px #000}.hub-outer{fill:#0b1b13;stroke:#f0d58a;stroke-width:3}.hub-inner{fill:url(#hub);stroke:#926b30;stroke-width:2}.hub-text{font-family:'Playfair Display',Georgia,serif;fill:#ffe5a1;text-anchor:middle;font-size:18px;font-weight:800;letter-spacing:2px}
+.actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:16px 0}.spin{border:1px solid #ffeba9;color:#231b0b;background:linear-gradient(135deg,#ffe9a7,#d4a542);border-radius:999px;padding:16px 39px;font:700 14px 'DM Sans',sans-serif;letter-spacing:.17em;text-transform:uppercase;box-shadow:0 5px 28px #dba63b37,inset 0 1px #fff8;cursor:pointer;transition:transform .18s,filter .18s}.spin:hover{transform:translateY(-2px);filter:brightness(1.08)}.spin:active{transform:scale(.97)}.spin:disabled{opacity:.7;cursor:wait}.music{min-height:48px;padding:12px 18px;border:1px solid #c7aa695c;border-radius:999px;background:#09170fbb;color:var(--cream);font:600 12px 'DM Sans',sans-serif;letter-spacing:.05em;cursor:pointer}.music:hover{border-color:var(--gold);background:#183323}.music[aria-pressed="true"]{color:var(--gold2);border-color:var(--gold)}button:focus-visible{outline:3px solid #fff0a2;outline-offset:4px}
+.result-wrap{display:flex;align-items:center;justify-content:center;gap:13px;min-height:98px;text-align:center}.result-label{font-size:10px;letter-spacing:.23em;color:#d3c6a3;text-transform:uppercase}.result{font-family:'Playfair Display',Georgia,serif;color:var(--gold2);font-size:clamp(50px,10vw,76px);font-weight:800;line-height:1;min-width:64px;text-shadow:0 0 24px #edc87569;transition:transform .35s,color .35s,text-shadow .35s}.result.pop{animation:reveal .68s cubic-bezier(.2,1.55,.42,1) both}.status{font-size:12px;color:var(--muted);margin:4px 0 0}.divider{width:100%;display:flex;align-items:center;gap:14px;color:#c9a856;font-size:12px;letter-spacing:.24em;margin:19px 0 11px}.divider:before,.divider:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#94773d)}.divider:after{transform:rotate(180deg)}.number-strip{width:min(100%,650px);display:flex;justify-content:center;flex-wrap:wrap;gap:5px}.chip{width:29px;height:28px;display:grid;place-items:center;border:1px solid #d8bf7952;border-radius:5px;background:#10271c;color:#e9dfc5;font-size:11px;font-weight:600;transition:all .3s}.chip.selected{background:var(--gold2);color:#172014;border-color:#fff0b3;transform:translateY(-4px) scale(1.15);box-shadow:0 0 18px #edc87580;z-index:1}.footer{margin-top:auto;padding-top:22px;color:#87978c;font-size:10px;letter-spacing:.13em;text-align:center}.footer span{color:#d7b965}
+@keyframes pulse{50%{opacity:.4;box-shadow:0 0 3px #72ce91}}@keyframes reveal{0%{transform:scale(.3) rotate(-20deg);opacity:0}65%{transform:scale(1.22) rotate(5deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+.winner-screen{position:fixed;inset:0;z-index:10;display:grid;place-items:center;overflow:auto;padding:24px;background:radial-gradient(ellipse at 50% 44%,#17442e 0%,#0b2118 49%,#06110b 100%);text-align:center;animation:screenIn .42s ease-out both}.winner-screen[hidden]{display:none}.winner-screen:before,.winner-screen:after{content:"✦";position:absolute;color:#edc87599;font-size:clamp(32px,7vw,70px);animation:twinkle 2.2s ease-in-out infinite alternate}.winner-screen:before{top:14%;left:15%}.winner-screen:after{right:15%;bottom:15%;animation-delay:.7s}.winner-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}.winner-kicker{margin:0;color:var(--gold);font-size:clamp(12px,2vw,16px);font-weight:700;letter-spacing:.42em;text-transform:uppercase}.winner-caption{margin:20px 0 4px;color:#d8cba8;font-size:clamp(12px,2.2vw,17px);letter-spacing:.25em;text-transform:uppercase}.winner-number{margin:0;color:var(--gold2);font-family:'Playfair Display',Georgia,serif;font-size:clamp(150px,45vw,440px);font-weight:800;line-height:.92;text-shadow:0 0 24px #edc8758a,0 0 90px #edc8754f;animation:reveal .9s cubic-bezier(.2,1.55,.42,1) both}.winner-rule{width:min(240px,52vw);height:1px;margin:28px 0 24px;background:linear-gradient(90deg,transparent,#edc875,transparent)}.winner-close{border:1px solid #ffeba9;color:#231b0b;background:linear-gradient(135deg,#ffe9a7,#d4a542);border-radius:999px;padding:14px 24px;font:700 12px 'DM Sans',sans-serif;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;box-shadow:0 5px 28px #dba63b37,inset 0 1px #fff8}.winner-close:hover{filter:brightness(1.08);transform:translateY(-2px)}
+@keyframes screenIn{from{opacity:0}to{opacity:1}}@keyframes twinkle{from{opacity:.35;transform:scale(.8) rotate(0)}to{opacity:1;transform:scale(1.15) rotate(22deg)}}
+@media(max-width:520px){main{padding:20px 14px 26px}.topline{font-size:9px;letter-spacing:.13em}.wheel-shell{width:min(84vw,440px);margin-top:10px}.actions{gap:9px;margin:13px 0}.spin{padding:14px 27px}.music{padding:11px 13px}.divider{margin-top:13px}.chip{width:25px;height:25px;font-size:10px;gap:3px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main>
+  <div class="topline"><span>✦ &nbsp; SALÓN PRIVADO &nbsp; ✦</span><span class="live"><i class="dot" aria-hidden="true"></i> 1 — 47</span></div>
+  <header class="brand"><p class="eyebrow">La suerte está de tu lado</p><h1>CASINO <span>LES</span></h1><p>Una vuelta. Un número. Tu momento.</p></header>
+  <div class="wheel-shell" aria-label="Ruleta con números del 1 al 47"><span class="pointer" aria-hidden="true"></span><svg id="wheel" viewBox="0 0 600 600" role="img" aria-label="Ruleta de 47 números"><defs><radialGradient id="hub"><stop offset="0" stop-color="#24472e"/><stop offset="1" stop-color="#0b1711"/></radialGradient></defs><circle class="rim" cx="300" cy="300" r="296"/><g id="sectors"></g><circle class="hub-outer" cx="300" cy="300" r="58"/><circle class="hub-inner" cx="300" cy="300" r="49"/><text class="hub-text" x="300" y="296">LES</text><text x="300" y="317" text-anchor="middle" fill="#c7a654" font-size="10" letter-spacing="3">✦ CASINO ✦</text></svg></div>
+  <section class="result-wrap" aria-live="polite" aria-atomic="true"><div><div class="result-label">Número ganador</div><div class="result" id="result">—</div></div></section>
+  <p class="status" id="status">¿Listo para probar tu suerte?</p>
+  <div class="actions"><button class="spin" id="spin" type="button">✦ &nbsp; Girar la ruleta &nbsp; ✦</button><button class="music" id="music" type="button" aria-pressed="false">♫ &nbsp; Música apagada</button></div>
+  <div class="divider">NÚMEROS EN JUEGO</div><div class="number-strip" id="numbers" aria-label="Números del 1 al 47"></div>
+  <footer class="footer">BUENA SUERTE · QUE GANE LA <span>FORTUNA</span></footer>
+</main>
+<section class="winner-screen" id="winnerScreen" role="dialog" aria-modal="true" aria-labelledby="winnerHeading" aria-describedby="winnerCaption" hidden>
+  <div class="winner-content"><h2 class="winner-kicker" id="winnerHeading">✦ &nbsp; CASINO LES &nbsp; ✦</h2><p class="winner-caption" id="winnerCaption">El número ganador es</p><div class="winner-number" id="winnerNumber" aria-live="assertive"></div><div class="winner-rule" aria-hidden="true"></div><button class="winner-close" id="winnerClose" type="button">Volver a la ruleta</button></div>
+</section>
+<script>
+(() => {
+  const count = 47, cx = 300, cy = 300, radius = 286, step = 360 / count;
+  const sectors = document.getElementById('sectors');
+  const wheel = document.getElementById('wheel');
+  const result = document.getElementById('result');
+  const status = document.getElementById('status');
+  const spinButton = document.getElementById('spin');
+  const musicButton = document.getElementById('music');
+  const chips = document.getElementById('numbers');
+  const winnerScreen = document.getElementById('winnerScreen');
+  const winnerNumber = document.getElementById('winnerNumber');
+  const winnerClose = document.getElementById('winnerClose');
+  let rotation = 0, spinning = false, audioContext = null, musicTimer = null, musicOn = false;
+  function closeWinner(){ winnerScreen.hidden=true; spinButton.focus(); }
+  winnerClose.addEventListener('click',closeWinner);
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!winnerScreen.hidden)closeWinner();});
+  const polar = (r, degrees) => { const a = degrees * Math.PI / 180; return [cx + r * Math.sin(a), cy - r * Math.cos(a)]; };
+  for (let i = 0; i < count; i++) {
+    const start = i * step, end = (i + 1) * step, mid = (start + end) / 2;
+    const [x1,y1] = polar(radius,start), [x2,y2] = polar(radius,end);
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`);
+    path.setAttribute('class','sector');
+    path.setAttribute('fill', i % 2 === 0 ? '#123d2c' : '#8e2433');
+    sectors.appendChild(path);
+    const [tx,ty] = polar(247,mid);
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x',tx); label.setAttribute('y',ty); label.setAttribute('class','number'); label.setAttribute('transform',`rotate(${mid},${tx},${ty})`); label.textContent = String(i+1); sectors.appendChild(label);
+    const chip = document.createElement('span'); chip.className='chip'; chip.id=`chip-${i+1}`; chip.textContent=String(i+1); chips.appendChild(chip);
+  }
+  function getAudio(){ if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)(); if(audioContext.state==='suspended') audioContext.resume(); return audioContext; }
+  function tone(freq,duration=.11,volume=.035,type='sine') { const ctx=getAudio(), osc=ctx.createOscillator(), gain=ctx.createGain(); osc.type=type; osc.frequency.value=freq; gain.gain.setValueAtTime(volume,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration); osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime+duration); }
+  const tune=[261.63,329.63,392,493.88,392,329.63,293.66,349.23]; let note=0;
+  musicButton.addEventListener('click',()=>{
+    musicOn=!musicOn; musicButton.setAttribute('aria-pressed',String(musicOn));
+    musicButton.innerHTML=musicOn?'♫ &nbsp; Música encendida':'♫ &nbsp; Música apagada';
+    if(musicOn){ getAudio(); tone(523.25,.5,.025); musicTimer=setInterval(()=>{tone(tune[note%tune.length],.44,.018); if(note%4===0)tone(tune[(note+2)%tune.length]*2,.22,.009); note++;},430); }
+    else { clearInterval(musicTimer); musicTimer=null; }
+  });
+  spinButton.addEventListener('click',()=>{
+    if(spinning)return;
+    spinning=true; spinButton.disabled=true; result.classList.remove('pop'); status.textContent='La suerte está girando…';
+    chips.querySelectorAll('.selected').forEach(el=>el.classList.remove('selected'));
+    const chosen=Math.floor(Math.random()*count)+1, index=chosen-1, center=(index+.5)*step;
+    const target=((360-center)%360+360)%360;
+    const current=((rotation%360)+360)%360;
+    const delta=(target-current+360)%360;
+    rotation += 360*7 + delta;
+    wheel.style.transform=`rotate(${rotation}deg)`;
+    const spinStart=performance.now(), duration=7200;
+    function tick(now){ if(!spinning)return; const progress=Math.min(1,(now-spinStart)/duration); const interval=40+progress*300; tone(450+Math.sin(progress*20)*65,.025,.012,'square'); if(progress<1) setTimeout(()=>tick(performance.now()),interval); }
+    tick(spinStart);
+    window.setTimeout(()=>{
+      spinning=false; spinButton.disabled=false; result.textContent=String(chosen); result.classList.add('pop');
+      document.getElementById(`chip-${chosen}`).classList.add('selected'); status.textContent='¡La fortuna ha hablado!';
+      winnerNumber.textContent=String(chosen); winnerScreen.hidden=false; winnerClose.focus();
+      tone(659.25,.25,.05); setTimeout(()=>tone(783.99,.3,.05),130); setTimeout(()=>tone(1046.5,.48,.045),280);
+    },7400);
+  });
+})();
+</script>
+</body>
+</html>
+
